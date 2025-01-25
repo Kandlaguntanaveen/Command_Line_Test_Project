@@ -13,8 +13,9 @@ typedef enum
 
 typedef struct USER
 {
-	char usr_name[30];
-	char usr_email[50]
-	char usr_pass[30];
+	char name[30];
+	char email[50];
+	char pass[30];
 }Usr_Info;
+Status signup(Usr_Info *User, FILE *Usr_file);
 #endif
