@@ -2,7 +2,7 @@
 
 Status result(Usr_Info *User, File_Info *file)
 {
-    int ans_index = 0, lines = 0, score = 0;
+    int ans_index = -1, lines = 0, score = 0;
     char correct_answer_line[MAX_ANSWER_LEN];
     char user_option_description[MAX_QUESTIONS][MAX_ANSWER_LEN];
     Answer correct_answers[MAX_QUESTIONS];
@@ -15,8 +15,11 @@ Status result(Usr_Info *User, File_Info *file)
             {
                 correct_answer_line[strlen(correct_answer_line) - 1] = '\0';
                 strcpy(user_option_description[ans_index], correct_answer_line + 4);
-                ans_index++;
             }  
+        }
+        if (('1' <= correct_answer_line[0] <= (char)MAX_QUESTIONS) && correct_answer_line[1] == ')')
+        {
+            ans_index++;
         }
         if (ans_index > MAX_QUESTIONS)
         {
@@ -32,6 +35,10 @@ Status result(Usr_Info *User, File_Info *file)
             correct_answers[ans_index].option = correct_answer_line[0];
             correct_answer_line[strlen(correct_answer_line) - 1] = '\0';
             strcpy(correct_answers[ans_index].description, correct_answer_line + 3);
+            if (User->answers[ans_index] == correct_answers[ans_index].option)
+            {
+                score++;
+            }
             ans_index++;
         }
         if (ans_index > MAX_QUESTIONS)
@@ -39,6 +46,9 @@ Status result(Usr_Info *User, File_Info *file)
             break;
         }
     }
+    
+    fprintf(file->Users_result,"%s %d\n", User->name, score);
+    fclose(file->Users_result);
 
     rewind(file->Question_bank_fname);
     fseek(file->Question_bank_fname, sizeof("Questions"), SEEK_SET);
@@ -62,7 +72,6 @@ Status result(Usr_Info *User, File_Info *file)
             if (User->answers[ans_index] == correct_answers[ans_index].option)
             {
                 printf("\nYour Answer: \033[1;32m %c) %s (Correct)\033[0m\n\n", User->answers[ans_index], correct_answers[ans_index].description); 
-                score++;
             }
             else if (User->answers[ans_index] == '0')
             {
@@ -83,8 +92,6 @@ Status result(Usr_Info *User, File_Info *file)
     }
    
     printf("INFO:  %s You got \033[1;33m%d\033[0m marks out of \033[1;32m%d \033[0m\n", User->name, score, MAX_QUESTIONS);
-    
-    fprintf(file->Users_result,"%s %d\n", User->name, score);
     
     return v_success;
 }
