@@ -8,6 +8,7 @@ Status check_file_order(FILE *fname, char *str)
     {
         identity[i++] = ch;
     }
+    
     identity[i] = '\0';
    
     if(strcmp(identity, str))
@@ -42,6 +43,7 @@ Status open_files_validation(char *argv[], File_Info *file_info)
     {
         return v_failure;
     }
+
     p = strstr(argv[2],".");
     if (!(strcmp(p,".csv")))
     {
@@ -105,6 +107,14 @@ Status open_files_validation(char *argv[], File_Info *file_info)
     }
     else
     {
+        return v_failure;
+    }
+
+    file_info->Users_result = fopen("Users_Result.txt", "a+");
+
+    if (file_info->Users_result == NULL)
+    {
+        fprintf(stderr,"ERROR: Unable open %s File\n","Result.txt");
         return v_failure;
     }
     
