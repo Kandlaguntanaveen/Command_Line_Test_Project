@@ -7,30 +7,23 @@ void clear_screen()
     system("clear");
 }
 
-Status Take_test(Usr_Info *User, FILE *Question_bank_fname, FILE *Answers_fname)
+Status Take_test(Usr_Info *User, FILE *Question_bank_fname)
 {
     int index = 0, lines = 0;
-    char *user_answers = malloc(sizeof(char));
-    if (user_answers == NULL) 
-    {
-        perror("malloc failed");
-        return v_failure;
-    }
-    char buffer;
+
     clear_screen();
-    printf("INFO:\033[1;33m Best of Luck\033[0m\n");
+
+    printf("INFO: \033[1;33m Best of Luck\033[0m\n");
     for(int i = 10; i >= 0; i--)
     {
-        printf("INFO: \033[1;33mTest Starts in ");
         if (i > 5) 
         {
-            printf("\033[32m%2d\033[0m ", i);
+            printf("INFO: \033[1;33m Test Starts in \033[32m%2d\033[1;33m seconds\033[0m", i);
         } 
         else 
         {
-            printf("\033[31m%2d\033[0m ", i); 
+            printf("INFO: \033[1;33m Test Starts in \033[31m%2d\033[1;33m seconds\033[0m", i);
         }
-        printf("\033[1;33mseconds\033[0m");
         fflush(stdout);
         printf("\r");
         sleep(1);
@@ -38,6 +31,7 @@ Status Take_test(Usr_Info *User, FILE *Question_bank_fname, FILE *Answers_fname)
 
     clear_screen();
 
+    char buffer;
     while (fread(&buffer, 1, 1, Question_bank_fname) > 0)
     {
         if (buffer == '\n')
@@ -52,19 +46,14 @@ Status Take_test(Usr_Info *User, FILE *Question_bank_fname, FILE *Answers_fname)
         else
         {
             printf("\n");
-            user_input(user_answers, &index);
-            user_answers = realloc(user_answers, index * sizeof(char));
-            if (user_answers == NULL) 
-            {
-                perror("realloc failed");
-                return v_failure;
-            }
-            sleep(2);
+            user_input(User->answers, &index);
+            index++;
+            sleep(1);
             clear_screen();
             lines = 0;
         }
     }
-    
+    return v_success;    
 }
 
 Status user_input(char answers[], int *index)
@@ -100,14 +89,11 @@ Status user_input(char answers[], int *index)
         {
             // Input available, read it
             opt = getchar();
-
             if(opt == 'a' || opt == 'b' || opt == 'c' || opt == 'd')
             {
                 printf("\nYou pressed: %c\n", opt);
                 printf("You Answered in %d seconds\n", TIME_FOR_EACH_QUE-i);
-                //sleep(1);
                 answers[(*index)] = opt;
-                (*index)++;  
                 break;
             }
             else if(opt != '\n' && opt != '\0')
@@ -121,7 +107,6 @@ Status user_input(char answers[], int *index)
     if (opt < 'a' || opt > 'd')
     {
         answers[(*index)] = '0';
-        (*index)++;
         printf("\nINFO: \033[31mTimeout\033[0m\n");
     }
 
