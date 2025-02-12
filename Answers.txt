@@ -1,0 +1,6 @@
+Answers
+b) The current value of a
+d) -32768 to 32767
+d) do while
+c) strcpy(dest, src);
+b) 0
