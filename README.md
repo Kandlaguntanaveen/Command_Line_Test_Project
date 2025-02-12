@@ -31,7 +31,9 @@ Ensure the following text files are provided and formatted correctly:
 
 # Running the Program
 To run the program, use the following command in the terminal with the required 4 arguments (the file paths for userdata, password, questions, and answers):
-> ./a.out user_info.csv Passwords.csv Questions.txt Answers.txt
+```bash
+./a.out user_info.csv Passwords.csv Questions.txt Answers.txt
+```
 
 # Usage
 ### 1. File Validation
