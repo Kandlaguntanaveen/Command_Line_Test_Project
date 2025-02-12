@@ -1,0 +1,26 @@
+Questions
+1) What is the output of this statement "printf("%d", (a++))"?
+ a) The value of (a + 1)
+ b) The current value of a
+ c) Error message
+ d) Garbage
+2) What is the 16-bit compiler allowable range for integer constants?
+ a) -3.4e38 to 3.4e38
+ b) -32767 to 32768
+ c) -32668 to 32667
+ d) -32768 to 32767
+3) Which one of the following is a loop construct that will always be executed once?
+ a) for
+ b) while
+ c) switch
+ d) do while
+4) Which of the following will copy the null-terminated string that is in array src into array dest?
+ a) dest = src;
+ b) dest == src;
+ c) strcpy(dest, src);
+ d) strcpy(src, dest);
+5) Given that x = 7.5, j = -1.0, n = 1.0, m = 2.0 the value of --x + j == x > n >= m is:?
+ a) 1
+ b) 0
+ c) 2
+ d) 3
