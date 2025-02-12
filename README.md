@@ -17,7 +17,7 @@ This project is a Command-Line Interface (CLI) application developed in C that a
 
 ### Prerequisites
 
-- C Compiler (e.g., GCC)
+- C Compiler (GCC Ubuntu 13.3.0-6ubuntu2~24.04)
 - Command-line interface (CLI)
 
 ### File Structure
