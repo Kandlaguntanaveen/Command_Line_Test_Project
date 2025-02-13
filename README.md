@@ -1,5 +1,7 @@
 # Command-Line_Test (C Programming)
 
+hi bro
+
 This project is a Command-Line Interface (CLI) application developed in C that allows users to register, sign in, take a quiz, and view the results. The system validates the input files, handles user sign-up and sign-in, and provides a quiz interface.
 
 ## Features
